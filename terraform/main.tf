@@ -15,9 +15,11 @@ terraform {
   # Shared identity stack keeps its OWN state, separate from every app, so each
   # app deploys independently and just reads the pool id / client ids from outputs.
   backend "s3" {
-    bucket = "identity-terraform-state-byreshb"
-    key    = "identity/terraform.tfstate"
-    region = "us-east-1"
+    bucket       = "identity-terraform-state-byreshb"
+    key          = "identity/terraform.tfstate"
+    region       = "us-east-1"
+    encrypt      = true
+    use_lockfile = true
   }
 }
 

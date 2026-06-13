@@ -1,9 +1,18 @@
 # byresha identity — shared login (Okta-lite) for all apps
 
-One **shared Amazon Cognito User Pool** that every app signs into. Log in once at
-`auth.byresha.com`, and all your apps (pulse, nudge, stowage, …) recognise the session —
-that's the SSO. Per-app access is controlled with **groups**, so a user only reaches the
-apps you've granted them.
+One **shared Amazon Cognito User Pool** that every app signs into. Log in once, and all
+your apps (pulse, nudge, stowage, …) recognise the session — that's the SSO. Per-app
+access is controlled with **groups**, so a user only reaches the apps you've granted them.
+
+> **✅ Deployed to dev (2026-06-12).** Live values + the full wiring/SSO-setup guide are in
+> [`SSO.md`](./SSO.md). Pool `us-east-1_b62r4VVXl`.
+>
+> **⚠️ Doc note:** this stack uses Cognito's **free default login domain**
+> (`https://byresha-id-dev-a3575f48.auth.us-east-1.amazoncognito.com`), **not**
+> `auth.byresha.com`. A custom domain would require an A record on the apex `byresha.com`,
+> which we intentionally leave untouched. The "custom domain / ACM / Route 53" parts of the
+> sections below are therefore **not** created by the current `terraform/domain.tf` — they
+> document the *optional future* upgrade. Everything else is accurate.
 
 ## Why this design
 
@@ -43,12 +52,10 @@ apps you've granted them.
 ## Prerequisites
 
 1. AWS creds via the **default** profile (`~/.aws/credentials`), region `us-east-1`.
-2. An S3 bucket for state: `identity-terraform-state-byreshb` (create once):
-   ```bash
-   aws s3 mb s3://identity-terraform-state-byreshb --region us-east-1
-   ```
-3. The `byresha.com` Route 53 zone must have an apex A record (it does — you serve
-   pulse.byresha.com). Cognito requires it before attaching the custom auth domain.
+2. The S3 state bucket `identity-terraform-state-byreshb` (already created: versioned +
+   AES256-encrypted + public-access-blocked).
+3. ~~Apex A record on byresha.com~~ — **not needed** with the default login domain. Only
+   required if you later switch to a custom `auth.byresha.com` domain.
 
 ## Deploy
 

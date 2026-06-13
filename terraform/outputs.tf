@@ -15,7 +15,7 @@ output "issuer_url" {
 
 output "hosted_ui_domain" {
   description = "Shared login domain (the SSO session lives here)"
-  value       = "https://${var.auth_domain}"
+  value       = "https://${aws_cognito_user_pool_domain.main.domain}.auth.${var.aws_region}.amazoncognito.com"
 }
 
 output "app_client_ids" {

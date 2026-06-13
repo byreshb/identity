@@ -52,8 +52,8 @@ variable "apps" {
       logout_urls   = ["https://nudge.byresha.com/", "http://localhost:5174/"]
     }
     stowage = {
-      callback_urls = ["https://stowage.byresha.com/auth/callback", "http://localhost:5175/auth/callback"]
-      logout_urls   = ["https://stowage.byresha.com/", "http://localhost:5175/"]
+      callback_urls = ["https://d10o5hdwdpgp5d.cloudfront.net/auth/callback", "https://stowage.byresha.com/auth/callback", "http://localhost:5173/auth/callback"]
+      logout_urls   = ["https://d10o5hdwdpgp5d.cloudfront.net/", "https://stowage.byresha.com/", "http://localhost:5173/"]
     }
   }
 }
